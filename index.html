@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>To Do List</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lista de Tarefas</h1>
+            <form class="form__search">
+                <input class="input__search" type="text" placeholder="Pesquisar" name="pesquisa" autocomplete="off">
+            </form>
+        </header>
+
+        <ul class="lista">
+            <li class="lista__li" data-todo="Texto da to-do">
+                <div class="text">
+                    <input type="checkbox" class="check__input">
+                    <span class="span__task">Texto da to-do</span>
+                </div>
+                <div class="icons">
+                    <i class="far fa-edit edit__icon" data-edit="Texto da to-do"></i>
+                    <i class="far fa-trash-alt" data-trash="Texto da to-do"></i>
+                </div>
+            </li>
+
+            <li class="lista__li" data-todo="Texto da segunda to-do">
+                <div class="text">
+                    <input type="checkbox" class="check__input">
+                    <span class="span__task">Texto da segunda to-do</span>
+                </div>
+                
+                <div class="icons">
+                    <i class="far fa-edit edit__icon" data-edit="Texto da segunda to-do"></i>
+                    <i class="far fa-trash-alt" data-trash="Texto da segunda to-do"></i>
+                </div>
+            </li>
+
+            <li class="lista__li" data-todo="Texto da terceira to-do">
+                <div class="text">
+                    <input type="checkbox" class="check__input">
+                    <span class="span__task">Texto da terceira to-do</span>
+                </div>
+               <div class="icons">
+                    <i class="far fa-edit edit__icon" data-edit="Texto da terceira to-do"></i>
+                    <i class="far fa-trash-alt" data-trash="Texto da terceira to-do"></i>
+                </div>
+            </li>
+        </ul>
+
+        <form class="form__add">
+            <label for="addTask"></label>
+            <input class="input__add" type="text" name="addTask" placeholder="Adicionar tarefa" autofocus autocomplete="off">
+        </form>
+        
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
