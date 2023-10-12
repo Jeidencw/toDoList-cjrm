@@ -5,17 +5,6 @@ const formSearch = document.querySelector('.form__search')
 const inputSearch = document.querySelector('.input__search')
 const editIcons = Array.from(document.querySelectorAll('.edit__icon'))
 
-formAdd.addEventListener('submit', event => {
-    event.preventDefault();
-    const inputAddValue = event.target.addTask.value;
-
-    if (inputAddValue.length) {
-        ulToDo.innerHTML += createTask(inputAddValue);
-
-        event.target.reset();
-    }
-});
-
 const createTask = inputAddValue =>{
     return `
             <li class="lista__li" data-todo=${inputAddValue}>
@@ -31,6 +20,17 @@ const createTask = inputAddValue =>{
         `
 }
 
+const addTask = event => {
+    event.preventDefault();
+    const inputAddValue = event.target.addTask.value;
+
+    if (inputAddValue.length) {
+        ulToDo.innerHTML += createTask(inputAddValue);
+
+        event.target.reset();
+    }
+}
+
 const toggleCheckbox = event => {
     const taskItem = event.target.parentElement
     const checkbox = event.target;
@@ -44,7 +44,7 @@ const toggleCheckbox = event => {
     }
 }
 
-ulToDo.addEventListener('click', event => {
+const ulControler = event => {
     const clickedElement = event.target
     const trashValue = clickedElement.dataset.trash
     const iditValeu = clickedElement.dataset.edit
@@ -60,7 +60,7 @@ ulToDo.addEventListener('click', event => {
         const taskToEdit = document.querySelector(`[data-todo = "${iditValeu}"]`)
         editInput(taskToEdit)
     }
-})
+}
 
 const editInput = taskToEdit => {
     const spanTask = taskToEdit.querySelector('.span__task')
@@ -82,9 +82,7 @@ const editInput = taskToEdit => {
     inputEdit.focus()
 }
 
-formSearch.addEventListener('submit', event => event.preventDefault())
-
-inputSearch.addEventListener('input', event => {
+const search = event => {
     const inputSearchValue = event.target.value
     const allTasks = Array.from(ulToDo.children)
 
@@ -97,4 +95,9 @@ inputSearch.addEventListener('input', event => {
     filterdTask.forEach(task => {
         task.classList.remove('hidden')
     })
-})
+}
+
+inputSearch.addEventListener('input', event => search(event))
+formSearch.addEventListener('submit', event => event.preventDefault())
+ulToDo.addEventListener('click', event => ulControler(event))
+formAdd.addEventListener('submit', event => addTask(event));
