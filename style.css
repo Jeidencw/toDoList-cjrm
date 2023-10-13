@@ -70,3 +70,8 @@ header h1{
 .hidden{
     display: none;
 }
+
+.edit__input{
+    background-color: transparent;
+    padding: 2px;
+}

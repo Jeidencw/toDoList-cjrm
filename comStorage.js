@@ -77,6 +77,7 @@ const editTask = taskToEdit => {
 
     taskToEdit.replaceWith(inputEdit)
 
+
     inputEdit.addEventListener('keypress', event => {
         if(event.key === 'Enter'){
             taskToEdit.textContent = inputEdit.value 
