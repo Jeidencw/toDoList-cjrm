@@ -12,28 +12,11 @@ const addTask = inputValue => {
             </div>
             
             <div class="icons">
-                <i class="far fa-edit edit__icon" data-edit="${inputValue}"></i>
-                <i class="far fa-trash-alt" data-trash="${inputValue}"></i>
+                <i class="far fa-edit edit__icon edit-icon" data-edit="${inputValue}"></i>
+                <i class="far fa-trash-alt trash-icon" data-trash="${inputValue}"></i>
             </div>
         </li>
     `
-}
-
-const toggleCheck = event => {
-    const check = event.target.checked
-    const taskItem = event.target.parentElement
-    const checkbox = event.target
-
-    if(check){
-        taskItem.classList.add('check')
-        checkbox.setAttribute("checked", "checked")
-        saveData()
-
-    }else{
-        taskItem.classList.remove('check')
-        checkbox.removeAttribute("checked")
-        saveData()
-    }
 }
 
 const saveData = () => {
@@ -66,7 +49,7 @@ const loadTasks = () => {
     }
 }
 
-const editTask = taskToEdit => {
+const editTask = (taskToEdit, taskToEditIcons, taskToTrashIcon, classText) => {
     const taskText = taskToEdit.textContent
     const liDaTask = taskToEdit.parentNode.parentNode
     
@@ -82,23 +65,48 @@ const editTask = taskToEdit => {
         if(event.key === 'Enter'){
             taskToEdit.textContent = inputEdit.value 
 
+            if (classText.querySelector('.check__input').checked) {
+                classText.classList.add('check');
+            } else {
+                classText.classList.remove('check');
+            }
+
             inputEdit.replaceWith(taskToEdit)
 
             liDaTask.setAttribute('data-todo', taskToEdit.textContent)
-            liDaTask.setAttribute('data-trash', taskToEdit.textContent)
-            liDaTask.setAttribute('data-edit', taskToEdit.textContent)
+            taskToEditIcons.setAttribute('data-edit', taskToEdit.textContent)
+            taskToTrashIcon.setAttribute('data-trash', taskToEdit.textContent)
             saveData()
         }
     })
 }
 
 
+const toggleCheck = event => {
+    const check = event.target.checked
+    const taskItem = event.target.parentElement
+    const checkbox = event.target
+
+    if(check){
+        taskItem.classList.add('check')
+        checkbox.setAttribute("checked", "checked")
+        saveData()
+
+    }else{
+        taskItem.classList.remove('check')
+        checkbox.removeAttribute("checked")
+        saveData()
+    }
+}
+
 const ulControler = event =>{
     const clickTrash = event.target.dataset.trash
     const clickEdit = event.target.dataset.edit
     const taskToDelete = document.querySelector(`[data-todo="${clickTrash}"]`)
     const taskToEdit = document.querySelector(`[data-todo="${clickEdit}"] .span__task`)
-
+    const taskToEditIcon = document.querySelector(`[data-todo="${clickEdit}"] .edit-icon`)
+    const taskToTrashIcon = document.querySelector(`[data-todo="${clickEdit}"] .trash-icon`)
+    const classText = document.querySelector(`[data-todo="${clickEdit}"] .text`)
 
     toggleCheck(event)
 
@@ -108,7 +116,7 @@ const ulControler = event =>{
     }
 
     if(clickEdit){
-        editTask(taskToEdit);
+        editTask(taskToEdit, taskToEditIcon, taskToTrashIcon, classText);
     }
 }
 
