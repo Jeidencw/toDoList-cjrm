@@ -51,22 +51,24 @@ const saveData = () => {
 const loadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem('tasks'))
 
-    tasks.forEach((task) => {
-        ul.innerHTML += addTask(task.task)
-
-        if(task.checked){
-            const taskItem = ul.querySelector(`[data-todo="${task.task}"]`)
-            const checkbox = taskItem.querySelector('.check__input')
-            const li = taskItem.querySelector('.text')
-            checkbox.setAttribute("checked", "checked")
-            li.classList.add('check')
-        }
-    })
+    if(tasks){
+        tasks.forEach((task) => {
+            ul.innerHTML += addTask(task.task)
+    
+            if(task.checked){
+                const taskItem = ul.querySelector(`[data-todo="${task.task}"]`)
+                const checkbox = taskItem.querySelector('.check__input')
+                const li = taskItem.querySelector('.text')
+                checkbox.setAttribute("checked", "checked")
+                li.classList.add('check')
+            }
+        })
+    }
 }
 
 const editTask = taskToEdit => {
     const taskText = taskToEdit.textContent
-    const allLi = Array.from(document.querySelectorAll('li'))
+    const liDaTask = taskToEdit.parentNode.parentNode
     
     const inputEdit = document.createElement('input')
     inputEdit.type = 'text'
@@ -77,9 +79,14 @@ const editTask = taskToEdit => {
 
     inputEdit.addEventListener('keypress', event => {
         if(event.key === 'Enter'){
-            taskToEdit.textContent = inputEdit.value
+            taskToEdit.textContent = inputEdit.value 
 
             inputEdit.replaceWith(taskToEdit)
+
+            liDaTask.setAttribute('data-todo', taskToEdit.textContent)
+            liDaTask.setAttribute('data-trash', taskToEdit.textContent)
+            liDaTask.setAttribute('data-edit', taskToEdit.textContent)
+            saveData()
         }
     })
 }
